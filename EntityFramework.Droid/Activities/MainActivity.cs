@@ -2,7 +2,7 @@
 using Android.Widget;
 using Android.OS;
 
-namespace EntityFramework.Droid
+namespace EntityFramework.Droid.Activities
 {
     [Activity(Label = "Xamarin.Droid.SqlLite", MainLauncher = true, Icon = "@mipmap/icon")]
     public class MainActivity : Activity
