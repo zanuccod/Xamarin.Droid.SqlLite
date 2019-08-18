@@ -5,6 +5,7 @@ using SqLiteEntityFramework.Models;
 using SqLiteEntityFramework.Entities;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace SqLiteEntityFramework.Tests.Models
 {
@@ -12,6 +13,16 @@ namespace SqLiteEntityFramework.Tests.Models
     public class AuthorDataStoreTests
     {
         private DbContextOptions<EntityFrameworkBase<Author>> options;
+
+#pragma warning disable IDE0051 // Rimuovi i membri privati inutilizzati
+        private IEnumerable<TestCaseData> TestCasesItems()
+        {
+            yield return new TestCaseData(null, 0);
+            yield return new TestCaseData(
+                new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" },
+                1);
+        }
+#pragma warning restore IDE0051
 
         [SetUp]
         public void SetUp()
@@ -21,33 +32,9 @@ namespace SqLiteEntityFramework.Tests.Models
                 .Options;
         }
 
-        [Test]
-        public void AddItemAsync_Null_NothingToAdd()
+        [Test, TestCaseSource("TestCasesItems")]
+        public void AddItemAsync_Success(Author item, int itemsCount)
         {
-            Author item = null;
-
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Task.FromResult(authorDataStore.AddItemAsync(item));
-            }
-
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Assert.AreEqual(0, authorDataStore.GetItemsAsync().Result.Count);
-            }
-        }
-
-        [Test]
-        public void AddItemAsync_Success()
-        {
-            var item = new Author()
-            {
-                Name = "name",
-                Surname = "surname",
-                BornDate = "01-01-1970",
-                Country = "USA"
-            };
-
             // Run the test against one instance of the context
             using (var authorDataStore = new AuthorDataStore(options))
             {
@@ -57,17 +44,14 @@ namespace SqLiteEntityFramework.Tests.Models
             // Use a separate instance of the context to verify correct data was saved to database
             using (var authorDataStore = new AuthorDataStore(options))
             {
-                Assert.AreEqual(1, authorDataStore.GetItemsAsync().Result.Count);
-                Assert.True(item.Equals(authorDataStore.GetItemAsync(item.Id).Result));
+                Assert.AreEqual(itemsCount, authorDataStore.GetItemsAsync().Result.Count);
             }
         }
 
-        [Test]
-        public void UpdateItemAsync_Null_NothingToUpdate()
+        [Test, TestCaseSource("TestCasesItems")]
+        public void UpdateItemAsync_Success(Author item, int itemsCount)
         {
-            Author item = null;
-
-            // update item entry
+            // update or insert item entry
             using (var authorDataStore = new AuthorDataStore(options))
             {
                 Task.FromResult(authorDataStore.UpdateItemAsync(item));
@@ -76,65 +60,7 @@ namespace SqLiteEntityFramework.Tests.Models
             // check for result
             using (var authorDataStore = new AuthorDataStore(options))
             {
-                Assert.AreEqual(0, authorDataStore.GetItemsAsync().Result.Count);
-            }
-        }
-
-        [Test]
-        public void UpdateItemAsync_Success()
-        {
-            var item = new Author()
-            {
-                Name = "name",
-                Surname = "surname",
-                BornDate = "01-01-1970",
-                Country = "USA"
-            };
-            const string expectedName = "name_update";
-            const string expectedSurname = "surname_update";
-            const string expectedBornDate = "01-01-2000";
-            const string expectedConuntry = "JAPAN";
-
-            // first add item
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Task.FromResult(authorDataStore.AddItemAsync(item));
-            }
-
-            // update item values
-            item.Name = expectedName;
-            item.Surname = expectedSurname;
-            item.BornDate = expectedBornDate;
-            item.Country = expectedConuntry;
-
-            // update item entry
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Task.FromResult(authorDataStore.UpdateItemAsync(item));
-            }
-
-            // check for result
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Assert.AreEqual(1, authorDataStore.GetItemsAsync().Result.Count);
-                Assert.True(item.Equals(authorDataStore.GetItemAsync(item.Id).Result));
-            }
-        }
-
-        [Test]
-        public void DeleteItemAsync_Null_NothingToUpdate()
-        {
-            Author item = null;
-
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Task.FromResult(authorDataStore.DeleteItemAsync(item));
-            }
-
-            // check for result
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Assert.AreEqual(0, authorDataStore.GetItemsAsync().Result.Count);
+                Assert.AreEqual(itemsCount, authorDataStore.GetItemsAsync().Result.Count);
             }
         }
 
@@ -146,7 +72,7 @@ namespace SqLiteEntityFramework.Tests.Models
                 Name = "name",
                 Surname = "surname",
                 BornDate = "01-01-1970",
-                Country = "USA"
+                Country = "TEST"
             };
 
             // first add item
