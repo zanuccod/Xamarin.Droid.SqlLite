@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using SqLiteEntityFramework.Models;
-using SqLiteEntityFramework.Entities;
+using EntityFramework.Models;
+using EntityFramework.Entities;
 
-namespace SqLiteEntityFramework
+namespace EntityFramework
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

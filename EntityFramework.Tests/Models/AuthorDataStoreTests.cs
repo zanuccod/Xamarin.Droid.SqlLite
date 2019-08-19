@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using SqLiteEntityFramework.Models;
-using SqLiteEntityFramework.Entities;
+using EntityFramework.Models;
+using EntityFramework.Entities;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace SqLiteEntityFramework.Tests.Models
+namespace EntityFramework.Tests.Models
 {
     [TestFixture]
     public class AuthorDataStoreTests

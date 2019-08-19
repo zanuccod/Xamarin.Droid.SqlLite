@@ -5,7 +5,7 @@ using Android.OS;
 using Android.Runtime;
 
 using Plugin.CurrentActivity;
-using SqLiteEntityFramework;
+using EntityFramework;
 
 namespace EntityFramework.Droid
 {

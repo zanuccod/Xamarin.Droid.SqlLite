@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SqLiteEntityFramework.Entities;
+using EntityFramework.Entities;
 
-namespace SqLiteEntityFramework.Models
+namespace EntityFramework.Models
 {
     public class AuthorDataStore : EntityFrameworkBase<Author>, IDataStore<Author>
     {

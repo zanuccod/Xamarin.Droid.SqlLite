@@ -1,7 +1,7 @@
 ﻿using System;
-using SqLiteEntityFramework.Entities;
+using EntityFramework.Entities;
 
-namespace SqLiteEntityFramework
+namespace EntityFramework
 {
     public class ItemDetailViewModel : BaseViewModel
     {

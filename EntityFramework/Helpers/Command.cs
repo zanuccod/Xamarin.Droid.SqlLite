@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace SqLiteEntityFramework
+namespace EntityFramework
 {
     public sealed class Command<T> : Command
     {

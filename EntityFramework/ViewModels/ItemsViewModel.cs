@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using SqLiteEntityFramework.Entities;
-using SqLiteEntityFramework.Models;
+using EntityFramework.Entities;
+using EntityFramework.Models;
 
-namespace SqLiteEntityFramework.ViewModels
+namespace EntityFramework.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {

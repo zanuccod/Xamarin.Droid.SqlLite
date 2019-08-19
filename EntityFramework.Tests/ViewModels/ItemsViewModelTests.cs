@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
-using SqLiteEntityFramework.Entities;
-using SqLiteEntityFramework.Models;
-using SqLiteEntityFramework.ViewModels;
+using EntityFramework.Entities;
+using EntityFramework.Models;
+using EntityFramework.ViewModels;
 
-namespace SqLiteEntityFramework.Tests.ViewModels
+namespace EntityFramework.Tests.ViewModels
 {
     [TestFixture]
     public class ItemsViewModelTests

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SqLiteEntityFramework
+namespace EntityFramework
 {
     public sealed class ServiceLocator
     {

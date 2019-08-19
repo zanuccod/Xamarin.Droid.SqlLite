@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 
-namespace SqLiteEntityFramework.Models
+namespace EntityFramework.Models
 {
     public class EntityFrameworkBase<T> : DbContext where T : class
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SqLiteEntityFramework.Models
+namespace EntityFramework.Models
 {
     public interface IDataStore<T>
     {

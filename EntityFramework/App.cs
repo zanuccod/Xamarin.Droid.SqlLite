@@ -1,7 +1,7 @@
-﻿using SqLiteEntityFramework.Entities;
-using SqLiteEntityFramework.Models;
+﻿using EntityFramework.Entities;
+using EntityFramework.Models;
 
-namespace SqLiteEntityFramework
+namespace EntityFramework
 {
     public class App
     {
