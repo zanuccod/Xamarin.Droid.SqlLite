@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Common.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
         bool isBusy;
         public bool IsBusy

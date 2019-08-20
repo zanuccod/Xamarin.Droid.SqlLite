@@ -4,7 +4,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using EF.Common.Entities;
-using EF.Common.ViewModels;
+using Common.ViewModels;
 
 namespace EntityFramework.Droid.Adapters
 {
@@ -31,10 +31,10 @@ namespace EntityFramework.Droid.Adapters
         public event EventHandler<Author> ItemLongClick;
 
         private readonly Activity activity;
-        private readonly ItemsViewModel viewModel;
+        private readonly ItemsViewModel<Author> viewModel;
 
 
-        public ItemsAdapter(Activity activity, ItemsViewModel viewModel)
+        public ItemsAdapter(Activity activity, ItemsViewModel<Author> viewModel)
         {
             this.activity = activity;
             this.viewModel = viewModel;

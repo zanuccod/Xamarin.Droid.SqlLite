@@ -6,7 +6,7 @@ using Android.Support.V7.Widget;
 using Newtonsoft.Json;
 using Android.Content;
 using Android.Support.Design.Widget;
-using EF.Common.ViewModels;
+using Common.ViewModels;
 using EF.Common.Entities;
 
 namespace EntityFramework.Droid.Activities
@@ -17,7 +17,7 @@ namespace EntityFramework.Droid.Activities
         private ItemsAdapter adapter;
         private FloatingActionButton addBtn;
 
-        private ItemsViewModel viewModel;
+        private ItemsViewModel<Author> viewModel;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -25,7 +25,7 @@ namespace EntityFramework.Droid.Activities
 
             SetContentView(Resource.Layout.Main);
 
-            viewModel = new ItemsViewModel();
+            viewModel = new ItemsViewModel<Author>();
 
             var recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
 
@@ -47,7 +47,8 @@ namespace EntityFramework.Droid.Activities
 
         private void AddBtn_Click(object sender, System.EventArgs e)
         {
-            viewModel.AddItemCommand.Execute(viewModel.GenerateAuthor());
+            var item = new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" };
+            viewModel.AddItemCommand.Execute(item);
         }
 
         protected override void OnDestroy()

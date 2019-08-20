@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Common.Models;
 using EF.Common.Entities;
 using EF.Common.Models;
-using EF.Common.ViewModels;
+using Common.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
@@ -17,7 +17,7 @@ namespace EF.Common.Test.ViewModels
     {
         Mock<IDataStore<Author>> mockAuthorModel;
         private IDataStore<Author> authorModel;
-        private ItemsViewModel viewModel;
+        private ItemsViewModel<Author> viewModel;
 
         [SetUp]
         public void Setup()
@@ -25,13 +25,13 @@ namespace EF.Common.Test.ViewModels
             mockAuthorModel = new Mock<IDataStore<Author>>();
             authorModel = mockAuthorModel.Object;
 
-            viewModel = new ItemsViewModel(authorModel);
+            viewModel = new ItemsViewModel<Author>(authorModel);
         }
 
         [Test]
         public void Constructor_NotNullElements_Success()
         {
-            viewModel = new ItemsViewModel();
+            viewModel = new ItemsViewModel<Author>();
             Assert.NotNull(viewModel.Items);
             Assert.AreEqual(0, viewModel.Items.Count);
             Assert.NotNull(viewModel.AddItemCommand);
@@ -70,7 +70,7 @@ namespace EF.Common.Test.ViewModels
 
             // create dataStore with "memory" connection option to test Add and then read operations
             authorModel = new AuthorDataStore(options);
-            viewModel = new ItemsViewModel(authorModel);
+            viewModel = new ItemsViewModel<Author>(authorModel);
 
             var expectedResult = new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "USA" };
 
