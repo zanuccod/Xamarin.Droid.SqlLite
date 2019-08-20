@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using EntityFramework.Models;
-using EntityFramework.Entities;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using System.Collections.Generic;
+using EF.Common.Entities;
+using EF.Common.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace EntityFramework.Tests.Models
+namespace EF.Common.Test.Models
 {
     [TestFixture]
     public class AuthorDataStoreTests

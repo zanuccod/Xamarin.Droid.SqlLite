@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EntityFramework.Models
+namespace Common.Models
 {
     public interface IDataStore<T>
     {

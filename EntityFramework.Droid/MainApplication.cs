@@ -5,7 +5,7 @@ using Android.OS;
 using Android.Runtime;
 
 using Plugin.CurrentActivity;
-using EntityFramework;
+using EF.Common;
 
 namespace EntityFramework.Droid
 {

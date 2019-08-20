@@ -1,5 +1,7 @@
-﻿using EntityFramework.Entities;
-using EntityFramework.Models;
+﻿using Common.Helpers;
+using Common.Models;
+using EF.Common.Entities;
+using EF.Common.Models;
 
 namespace EntityFramework
 {

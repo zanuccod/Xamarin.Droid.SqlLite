@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using EntityFramework.Models;
-using EntityFramework.Entities;
 
-namespace EntityFramework
+namespace Common.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

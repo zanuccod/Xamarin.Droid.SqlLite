@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Models;
+using EF.Common.Entities;
+using EF.Common.Models;
+using EF.Common.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
-using EntityFramework.Entities;
-using EntityFramework.Models;
-using EntityFramework.ViewModels;
 
-namespace EntityFramework.Tests.ViewModels
+namespace EF.Common.Test.ViewModels
 {
     [TestFixture]
     public class ItemsViewModelTests

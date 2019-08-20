@@ -2,12 +2,12 @@
 using Android.Widget;
 using Android.OS;
 using EntityFramework.Droid.Adapters;
-using EntityFramework.ViewModels;
 using Android.Support.V7.Widget;
 using Newtonsoft.Json;
 using Android.Content;
 using Android.Support.Design.Widget;
-using EntityFramework.Entities;
+using EF.Common.ViewModels;
+using EF.Common.Entities;
 
 namespace EntityFramework.Droid.Activities
 {

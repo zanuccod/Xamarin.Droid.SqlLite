@@ -2,9 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using EntityFramework.Entities;
+using EF.Common.Entities;
+using Common.Models;
 
-namespace EntityFramework.Models
+namespace EF.Common.Models
 {
     public class AuthorDataStore : EntityFrameworkBase<Author>, IDataStore<Author>
     {

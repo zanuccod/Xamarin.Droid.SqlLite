@@ -238,7 +238,6 @@
     <Reference Include="Xamarin.Android.Support.Transition">
       <HintPath>..\packages\Xamarin.Android.Support.Transition.28.0.0.1\lib\monoandroid90\Xamarin.Android.Support.Transition.dll</HintPath>
     </Reference>
-    <Reference Include="Java.Interop" />
     <Reference Include="Xamarin.Android.Support.Design">
       <HintPath>..\packages\Xamarin.Android.Support.Design.28.0.0.1\lib\monoandroid90\Xamarin.Android.Support.Design.dll</HintPath>
     </Reference>
@@ -292,7 +291,16 @@
     <Folder Include="values-v21\" />
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
-  <Import Project="..\EntityFramework\EntityFramework.projitems" Label="Shared" Condition="Exists('..\EntityFramework\EntityFramework.projitems')" />
+  <ItemGroup>
+    <ProjectReference Include="..\EF.Common\EF.Common.csproj">
+      <Project>{08FDAD15-0EC6-4131-80F7-0F182B968498}</Project>
+      <Name>EF.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{738372A6-D2F4-4FC8-9F09-2FC334955799}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Annotations.28.0.0.1\build\monoandroid90\Xamarin.Android.Support.Annotations.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Annotations.28.0.0.1\build\monoandroid90\Xamarin.Android.Support.Annotations.targets')" />
   <Import Project="..\packages\Xamarin.Android.Arch.Core.Common.1.1.1.1\build\monoandroid90\Xamarin.Android.Arch.Core.Common.targets" Condition="Exists('..\packages\Xamarin.Android.Arch.Core.Common.1.1.1.1\build\monoandroid90\Xamarin.Android.Arch.Core.Common.targets')" />

@@ -3,8 +3,8 @@ using Android.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using EntityFramework.Entities;
-using EntityFramework.ViewModels;
+using EF.Common.Entities;
+using EF.Common.ViewModels;
 
 namespace EntityFramework.Droid.Adapters
 {

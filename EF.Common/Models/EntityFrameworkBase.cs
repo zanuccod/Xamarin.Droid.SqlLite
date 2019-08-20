@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 
-namespace EntityFramework.Models
+namespace EF.Common.Models
 {
     public class EntityFrameworkBase<T> : DbContext where T : class
     {

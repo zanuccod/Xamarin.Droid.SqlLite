@@ -2,10 +2,13 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using EntityFramework.Entities;
-using EntityFramework.Models;
+using Common.Helpers;
+using Common.Models;
+using Common.ViewModels;
+using EF.Common.Entities;
+using EF.Common.Models;
 
-namespace EntityFramework.ViewModels
+namespace EF.Common.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {

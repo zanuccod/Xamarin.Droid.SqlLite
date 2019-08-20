@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
-namespace EntityFramework.Entities
+namespace EF.Common.Entities
 {
     public class Author
     {
