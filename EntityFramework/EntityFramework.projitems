@@ -16,7 +16,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\AuthorDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EntityFrameworkBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ItemsViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
   </ItemGroup>

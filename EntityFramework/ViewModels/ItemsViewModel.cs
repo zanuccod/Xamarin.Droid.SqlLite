@@ -63,5 +63,16 @@ namespace EntityFramework.ViewModels
             Items.Add(item);
             await authorDataStore.AddItemAsync(item);
         }
+
+        public Author GenerateAuthor()
+        {
+            return new Author()
+            {
+                Name = "name",
+                Surname = "surname",
+                BornDate = "01-01-1970",
+                Country = "TEST"
+            };
+        }
     }
 }

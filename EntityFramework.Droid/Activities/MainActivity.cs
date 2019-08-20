@@ -6,6 +6,8 @@ using EntityFramework.ViewModels;
 using Android.Support.V7.Widget;
 using Newtonsoft.Json;
 using Android.Content;
+using Android.Support.Design.Widget;
+using EntityFramework.Entities;
 
 namespace EntityFramework.Droid.Activities
 {
@@ -13,13 +15,14 @@ namespace EntityFramework.Droid.Activities
     public class MainActivity : Activity
     {
         private ItemsAdapter adapter;
+        private FloatingActionButton addBtn;
+
         private ItemsViewModel viewModel;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
             viewModel = new ItemsViewModel();
@@ -28,6 +31,8 @@ namespace EntityFramework.Droid.Activities
 
             recyclerView.HasFixedSize = true;
             recyclerView.SetAdapter(adapter = new ItemsAdapter(this, viewModel));
+
+            addBtn = FindViewById<FloatingActionButton>(Resource.Id.add_btn);
         }
 
         protected override void OnResume()
@@ -37,23 +42,22 @@ namespace EntityFramework.Droid.Activities
             if (viewModel.Items.Count == 0)
                 viewModel.LoadItemsCommand.Execute(null);
 
-            adapter.ItemClick += Adapter_ItemClick;
+            addBtn.Click += AddBtn_Click;
+        }
+
+        private void AddBtn_Click(object sender, System.EventArgs e)
+        {
+            viewModel.AddItemCommand.Execute(viewModel.GenerateAuthor());
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
 
-            adapter.ItemClick -= Adapter_ItemClick;
-        }
+            addBtn.Click -= AddBtn_Click;
 
-        private void Adapter_ItemClick(object sender, Entities.Author e)
-        {
-            using (var intent = new Intent(this, typeof(ItemDetailActivity)))
-            {
-                intent.PutExtra("data", JsonConvert.SerializeObject(e));
-                StartActivity(intent);
-            }
+            addBtn.Dispose();
+            adapter.Dispose();
         }
     }
 }
