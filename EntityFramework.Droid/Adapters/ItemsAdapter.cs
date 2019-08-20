@@ -2,11 +2,29 @@
 using Android.App;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Widget;
 using EntityFramework.Entities;
 using EntityFramework.ViewModels;
 
 namespace EntityFramework.Droid.Adapters
 {
+    public class ItemsViewHolder : RecyclerView.ViewHolder
+    {
+        public TextView Name { get; private set; }
+        public TextView Country { get; private set; }
+
+        public ItemsViewHolder(View itemView, Action<int> onClickListener, Action<int> onLongClickListener)
+            : base(itemView)
+        {
+            // Locate and cache view references:
+            Name = itemView.FindViewById<TextView>(Resource.Id.adapter_item_name);
+            Country = itemView.FindViewById<TextView>(Resource.Id.adapter_item_country);
+
+            itemView.Click += (sender, e) => onClickListener(AdapterPosition);
+            itemView.LongClick += (sender, e) => onLongClickListener(AdapterPosition);
+        }
+    }
+
     public class ItemsAdapter : RecyclerView.Adapter
     {
         public event EventHandler<Author> ItemClick;
@@ -35,12 +53,21 @@ namespace EntityFramework.Droid.Adapters
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            throw new NotImplementedException();
+            ItemsViewHolder vh = holder as ItemsViewHolder;
+
+            // Load the photo caption from the photo album:
+            vh.Name.Text = string.Format("{0} {1}", viewModel.Items[position].Name, viewModel.Items[position].Surname);
+            vh.Country.Text = viewModel.Items[position].Country;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            throw new NotImplementedException();
+            View itemView = LayoutInflater.From(parent.Context).
+                                          Inflate(Resource.Layout.adapter_item, parent, false);
+
+            // Create a ViewHolder to hold view references inside the CardView:
+            ItemsViewHolder item = new ItemsViewHolder(itemView, OnClick, OnLongClick);
+            return item;
         }
     }
 }

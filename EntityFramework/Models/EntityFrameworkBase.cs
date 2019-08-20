@@ -32,10 +32,6 @@ namespace EntityFramework.Models
 
         #region Public Methods
 
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
 
         #endregion
 
@@ -43,7 +39,10 @@ namespace EntityFramework.Models
 
         protected EntityFrameworkBase<T> CreateContext()
         {
-            return options != null ? new EntityFrameworkBase<T>(options) : new EntityFrameworkBase<T>();
+            var db = options != null ?  new EntityFrameworkBase<T>(options) : new EntityFrameworkBase<T>();
+            db.Database.EnsureCreated();
+
+            return db;
         }
 
         #endregion

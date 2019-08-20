@@ -8,7 +8,6 @@ namespace EntityFramework
         public static void Initialize()
         {
             ServiceLocator.Instance.Register<IDataStore<Author>, AuthorDataStore>();
-
         }
     }
 }
