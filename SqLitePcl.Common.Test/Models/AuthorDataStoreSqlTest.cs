@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SqLitePcl.Common.Entities;
@@ -10,16 +11,31 @@ namespace SqLitePcl.Common.Test.Models
     public class AuthorDataStoreSqlTest
     {
         private AuthorDataStoreSql db;
+        private const string dbPath = "dbSqLiteTest";
 
-        [SetUp]
+        [TestFixtureSetUp]
         public void SetUp()
         {
-            db = new AuthorDataStoreSql("DataSource=:memory:");
+            db = new AuthorDataStoreSql(dbPath + ".db3");
+        }
 
+        [TearDown]
+        public void AfterEachTest()
+        {
             // because "DataSource=:memory:" create file in the executable folder to store database.
             // we delete every time all data to have always empty table for the tests
             Task.FromResult(db.DeleteAllAsync());
         }
+
+        [TestFixtureTearDown]
+        public void Dispose()
+        {
+            // delete all database files generated for tests
+            var files = Directory.GetFiles(Path.GetDirectoryName(Path.GetFullPath(dbPath)), dbPath + ".*");
+            foreach (var file in files)
+                File.Delete(file);
+        }
+
 
         [Test]
         public void InsertOneElement_Succes()
