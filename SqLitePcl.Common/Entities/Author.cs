@@ -1,9 +1,11 @@
 ﻿using System;
+using SQLite;
 
 namespace SqLitePcl.Common.Entities
 {
     public class Author
     {
+        [PrimaryKey, AutoIncrement]
         public long Id { get; set; }
 
         public string Name { get; set; }
