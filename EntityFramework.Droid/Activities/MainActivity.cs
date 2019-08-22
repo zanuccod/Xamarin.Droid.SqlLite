@@ -1,13 +1,11 @@
 ﻿using Android.App;
-using Android.Widget;
 using Android.OS;
 using EntityFramework.Droid.Adapters;
 using Android.Support.V7.Widget;
-using Newtonsoft.Json;
-using Android.Content;
 using Android.Support.Design.Widget;
 using Common.ViewModels;
 using EF.Common.Entities;
+using EF.Common.Models;
 
 namespace EntityFramework.Droid.Activities
 {
@@ -25,7 +23,7 @@ namespace EntityFramework.Droid.Activities
 
             SetContentView(Resource.Layout.Main);
 
-            viewModel = new ItemsViewModel<Author>();
+            viewModel = new ItemsViewModel<Author>(new AuthorDataStore());
 
             var recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
 

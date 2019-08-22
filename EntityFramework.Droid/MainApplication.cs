@@ -22,7 +22,6 @@ namespace EntityFramework.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
-            App.Initialize();
         }
 
         public override void OnTerminate()

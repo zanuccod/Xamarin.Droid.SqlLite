@@ -15,13 +15,9 @@ namespace Common.ViewModels
         public Command LoadItemsCommand { get; set; }
         public Command AddItemCommand { get; set; }
 
-        /// <summary>
-        /// pass data store as agrument to allow unit test with custom model
-        /// </summary>
-        /// <param name="model"></param>
-        public ItemsViewModel(IDataStore<T> model = null)
+        public ItemsViewModel(IDataStore<T> model)
         {
-            authorDataStore = model ?? ServiceLocator.Instance.Get<IDataStore<T>>();
+            authorDataStore = model;
             Init();
         }
 
