@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqLitePcl.Common", "SqLiteP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqLitePcl.Common.Test", "SqLitePcl.Common.Test\SqLitePcl.Common.Test.csproj", "{5B56417D-F6BF-41F1-BB15-8B262149B80B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqLitePcl.Droid", "SqLitePcl.Droid\SqLitePcl.Droid.csproj", "{43565017-5A07-4160-A33B-C66124E2A027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,5 +45,9 @@ Global
 		{5B56417D-F6BF-41F1-BB15-8B262149B80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B56417D-F6BF-41F1-BB15-8B262149B80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B56417D-F6BF-41F1-BB15-8B262149B80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43565017-5A07-4160-A33B-C66124E2A027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43565017-5A07-4160-A33B-C66124E2A027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43565017-5A07-4160-A33B-C66124E2A027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43565017-5A07-4160-A33B-C66124E2A027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

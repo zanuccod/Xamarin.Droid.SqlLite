@@ -15,6 +15,7 @@ namespace EntityFramework.Droid.Activities
         private ItemsAdapter adapter;
         private FloatingActionButton addBtn;
 
+        private AuthorDataStore model;
         private ItemsViewModel<Author> viewModel;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -23,7 +24,8 @@ namespace EntityFramework.Droid.Activities
 
             SetContentView(Resource.Layout.Main);
 
-            viewModel = new ItemsViewModel<Author>(new AuthorDataStore());
+            model = new AuthorDataStore();
+            viewModel = new ItemsViewModel<Author>(model);
 
             var recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
 
@@ -55,6 +57,7 @@ namespace EntityFramework.Droid.Activities
 
             addBtn.Click -= AddBtn_Click;
 
+            model.Dispose();
             addBtn.Dispose();
             adapter.Dispose();
         }

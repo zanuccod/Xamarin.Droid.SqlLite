@@ -8,7 +8,7 @@ namespace SqLitePcl.Common.Models
 {
     public class AuthorDataStoreSql : SqLiteBase, IDataStore<Author>
     {
-        public AuthorDataStoreSql(string dbPath)
+        public AuthorDataStoreSql(string dbPath = null)
             : base(dbPath)
         { }
 

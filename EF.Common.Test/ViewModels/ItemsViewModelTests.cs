@@ -31,7 +31,7 @@ namespace EF.Common.Test.ViewModels
         [Test]
         public void Constructor_NotNullElements_Success()
         {
-            viewModel = new ItemsViewModel<Author>();
+            viewModel = new ItemsViewModel<Author>(authorModel);
             Assert.NotNull(viewModel.Items);
             Assert.AreEqual(0, viewModel.Items.Count);
             Assert.NotNull(viewModel.AddItemCommand);
