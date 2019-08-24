@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -70,6 +71,28 @@ namespace SqLitePcl.Common.Test.Models
             item = db.GetItemsAsync().Result.FirstOrDefault();
             Task.FromResult(db.DeleteItemAsync(item));
 
+            Assert.AreEqual(0, db.GetItemsAsync().Result.Count);
+        }
+
+        [Test]
+        public void DeleteAllAsync_Success()
+        {
+            // Assert
+            var items = new List<Author>()
+            {
+                new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" },
+                new Author() { Name = "name1", Surname = "surname1", BornDate = "01-01-1970", Country = "TEST" },
+                new Author() { Name = "name2", Surname = "surname2", BornDate = "01-01-1970", Country = "TEST" }
+            };
+
+            items.ForEach(x => Task.FromResult(db.AddItemAsync(x)));
+            Assert.AreEqual(items.Count, db.GetItemsAsync().Result.Count);
+
+
+            // Act
+            Task.FromResult(db.DeleteAllAsync());
+
+            // Assert
             Assert.AreEqual(0, db.GetItemsAsync().Result.Count);
         }
     }

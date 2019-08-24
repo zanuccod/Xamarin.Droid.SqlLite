@@ -14,6 +14,7 @@ namespace Common.ViewModels
         public ObservableCollection<T> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
         public Command AddItemCommand { get; set; }
+        public Command DeleteAllCommand { get; set; }
 
         public ItemsViewModel(IDataStore<T> model)
         {
@@ -26,6 +27,7 @@ namespace Common.ViewModels
             Items = new ObservableCollection<T>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             AddItemCommand = new Command<T>(async (T item) => await AddItem(item));
+            DeleteAllCommand = new Command<T>(async (T item) => await DeleteAllItems());
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -56,8 +58,14 @@ namespace Common.ViewModels
 
         async Task AddItem(T item)
         {
-            Items.Add(item);
             await authorDataStore.AddItemAsync(item);
+            Items.Add(item);
+        }
+
+        async Task DeleteAllItems()
+        {
+            await authorDataStore.DeleteAllAsync();
+            Items.Clear();
         }
     }
 }

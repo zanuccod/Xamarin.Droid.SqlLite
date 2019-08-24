@@ -93,5 +93,37 @@ namespace EF.Common.Test.Models
                 Assert.AreEqual(0, authorDataStore.GetItemsAsync().Result.Count);
             }
         }
+
+        [Test]
+        public void DeleteAllAsync_Success()
+        {
+            // Assert
+            var items = new List<Author>()
+            {
+                new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" },
+                new Author() { Name = "name1", Surname = "surname1", BornDate = "01-01-1970", Country = "TEST" },
+                new Author() { Name = "name2", Surname = "surname2", BornDate = "01-01-1970", Country = "TEST" }
+            };
+
+            // Run the test against one instance of the context
+            using (var authorDataStore = new AuthorDataStore(options))
+            {
+                items.ForEach(x => Task.FromResult(authorDataStore.AddItemAsync(x)));
+
+                Assert.AreEqual(items.Count, authorDataStore.GetItemsAsync().Result.Count);
+            }
+
+            // Act
+            using (var authorDataStore = new AuthorDataStore(options))
+            {
+                Task.FromResult(authorDataStore.DeleteAllAsync());
+            }
+
+            // Assert
+            using (var authorDataStore = new AuthorDataStore(options))
+            {
+                Assert.AreEqual(0, authorDataStore.GetItemsAsync().Result.Count);
+            }
+        }
     }
 }

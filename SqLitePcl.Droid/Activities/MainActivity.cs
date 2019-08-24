@@ -75,6 +75,7 @@ namespace SqLitePcl.Droid.Activities
             int id = item.ItemId;
             if (id == Resource.Id.action_delete_values)
             {
+                viewModel.DeleteAllCommand.Execute(null);
                 return true;
             }
 

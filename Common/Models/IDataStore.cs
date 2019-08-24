@@ -10,5 +10,6 @@ namespace Common.Models
         Task DeleteItemAsync(T item);
         Task<T> GetItemAsync(long item);
         Task<List<T>> GetItemsAsync();
+        Task DeleteAllAsync();
     }
 }

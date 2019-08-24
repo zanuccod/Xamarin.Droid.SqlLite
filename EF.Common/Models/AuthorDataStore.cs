@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EF.Common.Entities;
 using Common.Models;
+using System.Transactions;
 
 namespace EF.Common.Models
 {
@@ -57,6 +58,16 @@ namespace EF.Common.Models
             {
                 return await context.Table.OrderByDescending(x => x.Id)
                                 .ToListAsync();
+            }
+        }
+
+        public async Task DeleteAllAsync()
+        {
+            using (var context = CreateContext())
+            {
+                var items = await context.Table.ToArrayAsync();
+                context.RemoveRange(items);
+                await context.SaveChangesAsync();
             }
         }
     }
