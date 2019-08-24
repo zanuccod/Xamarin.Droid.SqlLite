@@ -18,6 +18,16 @@ namespace EF.Common.Test.ViewModels
         Mock<IDataStore<Author>> mockAuthorModel;
         private IDataStore<Author> authorModel;
         private ItemsViewModel<Author> viewModel;
+        DbContextOptions<EntityFrameworkBase<Author>> options;
+
+        [TestFixtureSetUp]
+        public void Init()
+        {
+            // create dataStore with "memory" connection option to test Add and then read operations
+            options = new DbContextOptionsBuilder<EntityFrameworkBase<Author>>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+        }
 
         [SetUp]
         public void Setup()
@@ -31,7 +41,10 @@ namespace EF.Common.Test.ViewModels
         [Test]
         public void Constructor_NotNullElements_Success()
         {
+            // Arrange
             viewModel = new ItemsViewModel<Author>(authorModel);
+
+            // Assert
             Assert.NotNull(viewModel.Items);
             Assert.AreEqual(0, viewModel.Items.Count);
             Assert.NotNull(viewModel.AddItemCommand);
@@ -64,11 +77,6 @@ namespace EF.Common.Test.ViewModels
         public void AddItemAsync_AddItemThenRead_Success()
         {
             // Arrange
-            DbContextOptions<EntityFrameworkBase<Author>> options = new DbContextOptionsBuilder<EntityFrameworkBase<Author>>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            // create dataStore with "memory" connection option to test Add and then read operations
             authorModel = new AuthorDataStore(options);
             viewModel = new ItemsViewModel<Author>(authorModel);
 
@@ -76,10 +84,42 @@ namespace EF.Common.Test.ViewModels
 
             // Act
             viewModel.AddItemCommand.Execute(expectedResult);
-            viewModel.LoadItemsCommand.Execute(null);
 
             // Assert
+            // reload items from database and check that first element is equal to the inserted
+            viewModel.LoadItemsCommand.Execute(null);
+
             Assert.True(expectedResult.Equals(viewModel.Items.First()));
+            Assert.False(viewModel.IsBusy);
+        }
+
+        [Test]
+        public void DeleteAllAsync_AddItemsAndDeleteAll_Success()
+        {
+            // Arrange
+            authorModel = new AuthorDataStore(options);
+            viewModel = new ItemsViewModel<Author>(authorModel);
+
+            var items = new List<Author>()
+            {
+                new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" },
+                new Author() { Name = "name1", Surname = "surname1", BornDate = "01-01-1970", Country = "TEST" },
+                new Author() { Name = "name2", Surname = "surname2", BornDate = "01-01-1970", Country = "TEST" }
+            };
+            items.ForEach(x => viewModel.AddItemCommand.Execute(x));
+            Assert.AreEqual(items.Count, viewModel.Items.Count);
+
+            // Act
+            viewModel.DeleteAllCommand.Execute(null);
+
+            // Assert
+
+            // items list of the view model should be empty
+            Assert.AreEqual(0, viewModel.Items.Count);
+
+            // reload items from database to check that table is empty
+            viewModel.LoadItemsCommand.Execute(null);
+            Assert.AreEqual(0, viewModel.Items.Count);
             Assert.False(viewModel.IsBusy);
         }
     }
