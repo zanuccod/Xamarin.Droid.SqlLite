@@ -20,30 +20,21 @@ namespace EF.Common.Test.ViewModels
         private ItemsViewModel<Author> viewModel;
         DbContextOptions<EntityFrameworkBase<Author>> options;
 
-        [TestFixtureSetUp]
-        public void Init()
+        [SetUp]
+        public void Setup()
         {
             // create dataStore with "memory" connection option to test Add and then read operations
             options = new DbContextOptionsBuilder<EntityFrameworkBase<Author>>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-        }
 
-        [SetUp]
-        public void Setup()
-        {
-            mockAuthorModel = new Mock<IDataStore<Author>>();
-            authorModel = mockAuthorModel.Object;
-
+            authorModel = new AuthorDataStore(options);
             viewModel = new ItemsViewModel<Author>(authorModel);
         }
 
         [Test]
         public void Constructor_NotNullElements_Success()
         {
-            // Arrange
-            viewModel = new ItemsViewModel<Author>(authorModel);
-
             // Assert
             Assert.NotNull(viewModel.Items);
             Assert.AreEqual(0, viewModel.Items.Count);
@@ -62,6 +53,11 @@ namespace EF.Common.Test.ViewModels
                 new Author() { Name = "name_2", Surname = "surname_2", BornDate = "02-02-1972", Country = "JAPAN" }
             };
 
+            mockAuthorModel = new Mock<IDataStore<Author>>();
+            authorModel = mockAuthorModel.Object;
+
+            viewModel = new ItemsViewModel<Author>(authorModel);
+
             // mock expected result of GetItemsAsync() method
             mockAuthorModel.Setup(x => x.GetItemsAsync()).Returns(Task.FromResult(expectedResult));
 
@@ -77,9 +73,6 @@ namespace EF.Common.Test.ViewModels
         public void AddItemAsync_AddItemThenRead_Success()
         {
             // Arrange
-            authorModel = new AuthorDataStore(options);
-            viewModel = new ItemsViewModel<Author>(authorModel);
-
             var expectedResult = new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "USA" };
 
             // Act
@@ -97,9 +90,6 @@ namespace EF.Common.Test.ViewModels
         public void DeleteAllAsync_AddItemsAndDeleteAll_Success()
         {
             // Arrange
-            authorModel = new AuthorDataStore(options);
-            viewModel = new ItemsViewModel<Author>(authorModel);
-
             var items = new List<Author>()
             {
                 new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" },

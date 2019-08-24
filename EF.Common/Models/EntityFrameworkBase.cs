@@ -32,6 +32,11 @@ namespace EF.Common.Models
 
         #region Public Methods
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            Table = null;
+        }
 
         #endregion
 

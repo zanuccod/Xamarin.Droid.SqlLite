@@ -15,7 +15,7 @@ namespace SqLitePcl.Common.Test.Models
         private const string dbPath = "dbSqLiteTest";
 
         [TestFixtureSetUp]
-        public void SetUp()
+        public void Init()
         {
             db = new AuthorDataStoreSql(dbPath + ".db3");
         }

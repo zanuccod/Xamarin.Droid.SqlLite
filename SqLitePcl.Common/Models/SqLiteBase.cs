@@ -39,7 +39,5 @@ namespace SqLitePcl.Common.Models
             var path = Path.Combine(documentsPath, databaseName);
             return path;
         }
-
-        
     }
 }
