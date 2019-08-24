@@ -5,13 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{43565017-5A07-4160-A33B-C66124E2A027}</ProjectGuid>
+    <ProjectGuid>{1B13516A-D145-4B76-A80E-948AF9EFB88F}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{84dd83c5-0fe3-4294-9419-09e7c8ba324f}</TemplateGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SqLitePcl.Droid</RootNamespace>
-    <AssemblyName>SqLitePcl.Droid</AssemblyName>
+    <RootNamespace>EF.Droid</RootNamespace>
+    <AssemblyName>EF.Droid</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
@@ -116,23 +116,26 @@
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.1" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
-      <Version>28.0.0.1</Version>
-    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials" Version="1.3.0" />
     <PackageReference Include="Xamarin.Android.Support.v7.RecyclerView">
       <Version>28.0.0.1</Version>
     </PackageReference>
-    <PackageReference Include="sqlite-net-pcl">
-      <Version>1.5.231</Version>
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
+      <Version>28.0.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>2.2.6</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <Version>2.2.6</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.v4">
       <Version>28.0.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Adapters\" />
     <Folder Include="Activities\" />
+    <Folder Include="Adapters\" />
     <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\values-v21\" />
   </ItemGroup>
@@ -141,9 +144,9 @@
       <Project>{738372A6-D2F4-4FC8-9F09-2FC334955799}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SqLitePcl.Common\SqLitePcl.Common.csproj">
-      <Project>{C5CF9A2A-771C-4E6F-BCF1-80C404CB1D74}</Project>
-      <Name>SqLitePcl.Common</Name>
+    <ProjectReference Include="..\EF.Common\EF.Common.csproj">
+      <Project>{08FDAD15-0EC6-4131-80F7-0F182B968498}</Project>
+      <Name>EF.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

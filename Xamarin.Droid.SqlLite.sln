@@ -1,8 +1,6 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework.Droid", "EntityFramework.Droid\EntityFramework.Droid.csproj", "{8E4632F5-F42F-478C-BE5B-088C4CD02130}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{738372A6-D2F4-4FC8-9F09-2FC334955799}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Common", "EF.Common\EF.Common.csproj", "{08FDAD15-0EC6-4131-80F7-0F182B968498}"
@@ -15,16 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqLitePcl.Common.Test", "Sq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqLitePcl.Droid", "SqLitePcl.Droid\SqLitePcl.Droid.csproj", "{43565017-5A07-4160-A33B-C66124E2A027}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Droid", "EF.Droid\EF.Droid.csproj", "{1B13516A-D145-4B76-A80E-948AF9EFB88F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8E4632F5-F42F-478C-BE5B-088C4CD02130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E4632F5-F42F-478C-BE5B-088C4CD02130}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E4632F5-F42F-478C-BE5B-088C4CD02130}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E4632F5-F42F-478C-BE5B-088C4CD02130}.Release|Any CPU.Build.0 = Release|Any CPU
 		{738372A6-D2F4-4FC8-9F09-2FC334955799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{738372A6-D2F4-4FC8-9F09-2FC334955799}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{738372A6-D2F4-4FC8-9F09-2FC334955799}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,5 +45,9 @@ Global
 		{43565017-5A07-4160-A33B-C66124E2A027}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43565017-5A07-4160-A33B-C66124E2A027}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43565017-5A07-4160-A33B-C66124E2A027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B13516A-D145-4B76-A80E-948AF9EFB88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B13516A-D145-4B76-A80E-948AF9EFB88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B13516A-D145-4B76-A80E-948AF9EFB88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B13516A-D145-4B76-A80E-948AF9EFB88F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
