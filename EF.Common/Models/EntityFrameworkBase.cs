@@ -8,18 +8,17 @@ namespace EF.Common.Models
     {
         private const string databaseName = "dbEF.db";
 
-        // used for unit test: to have always same context for queries
-        private readonly DbContextOptions<EntityFrameworkBase<T>> options;
-
         #region Constructors
 
         public EntityFrameworkBase()
-        { }
+        {
+            Init();
+        }
 
-        public EntityFrameworkBase(DbContextOptions<EntityFrameworkBase<T>> options)
+        public EntityFrameworkBase(DbContextOptions<EntityFrameworkBase<T>> options = null)
             : base(options)
         {
-            this.options = options;
+            Init();
         }
 
         #endregion
@@ -42,12 +41,9 @@ namespace EF.Common.Models
 
         #region Private Methods
 
-        protected EntityFrameworkBase<T> CreateContext()
+        private void Init()
         {
-            var db = options != null ?  new EntityFrameworkBase<T>(options) : new EntityFrameworkBase<T>();
-            db.Database.EnsureCreated();
-
-            return db;
+            Database.EnsureCreated();
         }
 
         #endregion

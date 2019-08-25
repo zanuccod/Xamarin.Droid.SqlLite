@@ -7,7 +7,7 @@ namespace SqLitePcl.Common.Models
 {
     public abstract class SqLiteBase : IDisposable
     {
-        private const string databaseName = "dbSqLiteNetPcl1.db";
+        private const string databaseName = "dbSqLiteNetPcl.db";
 
         protected SQLiteAsyncConnection db;
 
@@ -36,8 +36,7 @@ namespace SqLitePcl.Common.Models
         private string GetDatabasePath()
         {
             var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
-            var path = Path.Combine(documentsPath, databaseName);
-            return path;
+            return Path.Combine(documentsPath, databaseName);
         }
     }
 }

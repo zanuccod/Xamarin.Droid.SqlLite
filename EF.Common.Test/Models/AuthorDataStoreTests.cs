@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using EF.Common.Entities;
 using EF.Common.Models;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace EF.Common.Test.Models
 {
@@ -13,8 +14,10 @@ namespace EF.Common.Test.Models
     public class AuthorDataStoreTests
     {
         private DbContextOptions<EntityFrameworkBase<Author>> options;
+        private const string dbPath = "dbEFTest";
+        private AuthorDataStore db;
 
-#pragma warning disable IDE0051 // Rimuovi i membri privati inutilizzati
+#pragma warning disable IDE0051 // remove warning of unsed private members
         private IEnumerable<TestCaseData> TestCasesItems()
         {
             yield return new TestCaseData(null, 0);
@@ -22,76 +25,65 @@ namespace EF.Common.Test.Models
                 new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" },
                 1);
         }
+
 #pragma warning restore IDE0051
 
-        [SetUp]
-        public void SetUp()
+        [TestFixtureSetUp]
+        public void BeforeAllTests()
         {
             options = new DbContextOptionsBuilder<EntityFrameworkBase<Author>>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .UseSqlite($"Filename={dbPath}.db3")
                 .Options;
+        }
+
+        [SetUp]
+        public void BeforeEachTest()
+        {
+            db = new AuthorDataStore(options);
+        }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            // delete all database files generated for test
+            var files = Directory.GetFiles(Path.GetDirectoryName(Path.GetFullPath(dbPath)), dbPath + ".*");
+            foreach (var file in files)
+                File.Delete(file);
         }
 
         [Test, TestCaseSource("TestCasesItems")]
         public void AddItemAsync_Success(Author item, int itemsCount)
         {
-            // Run the test against one instance of the context
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Task.FromResult(authorDataStore.AddItemAsync(item));
-            }
+            // Act
+            Task.FromResult(db.AddItemAsync(item));
 
-            // Use a separate instance of the context to verify correct data was saved to database
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Assert.AreEqual(itemsCount, authorDataStore.GetItemsAsync().Result.Count);
-            }
+            // Assert
+            Assert.AreEqual(itemsCount, db.GetItemsAsync().Result.Count);
         }
 
         [Test, TestCaseSource("TestCasesItems")]
         public void UpdateItemAsync_Success(Author item, int itemsCount)
         {
-            // update or insert item entry
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Task.FromResult(authorDataStore.UpdateItemAsync(item));
-            }
+            // Act
+            Task.FromResult(db.UpdateItemAsync(item));
 
-            // check for result
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Assert.AreEqual(itemsCount, authorDataStore.GetItemsAsync().Result.Count);
-            }
+            // Assert
+            Assert.AreEqual(itemsCount, db.GetItemsAsync().Result.Count);
         }
 
         [Test]
         public void DeleteItemAsync_Success()
         {
-            var item = new Author()
-            {
-                Name = "name",
-                Surname = "surname",
-                BornDate = "01-01-1970",
-                Country = "TEST"
-            };
+            // Arrange
+            var item = new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" };
+            Task.FromResult(db.AddItemAsync(item));
+            Assert.AreEqual(1, db.GetItemsAsync().Result.Count);
 
-            // first add item
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Task.FromResult(authorDataStore.AddItemAsync(item));
-            }
+            // Act
+            Task.FromResult(db.DeleteItemAsync(item));
 
-            // delete item entry
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Task.FromResult(authorDataStore.DeleteItemAsync(item));
-            }
-
-            // check for result
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Assert.AreEqual(0, authorDataStore.GetItemsAsync().Result.Count);
-            }
+            // Assert
+            Assert.AreEqual(0, db.GetItemsAsync().Result.Count);
         }
 
         [Test]
@@ -105,25 +97,14 @@ namespace EF.Common.Test.Models
                 new Author() { Name = "name2", Surname = "surname2", BornDate = "01-01-1970", Country = "TEST" }
             };
 
-            // Run the test against one instance of the context
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                items.ForEach(x => Task.FromResult(authorDataStore.AddItemAsync(x)));
-
-                Assert.AreEqual(items.Count, authorDataStore.GetItemsAsync().Result.Count);
-            }
+            items.ForEach(x => Task.FromResult(db.AddItemAsync(x)));
+            Assert.AreEqual(items.Count, db.GetItemsAsync().Result.Count);
 
             // Act
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Task.FromResult(authorDataStore.DeleteAllAsync());
-            }
+            Task.FromResult(db.DeleteAllAsync());
 
             // Assert
-            using (var authorDataStore = new AuthorDataStore(options))
-            {
-                Assert.AreEqual(0, authorDataStore.GetItemsAsync().Result.Count);
-            }
+            Assert.AreEqual(0, db.GetItemsAsync().Result.Count);
         }
     }
 }

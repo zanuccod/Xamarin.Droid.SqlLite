@@ -45,11 +45,7 @@ namespace Common.ViewModels
             try
             {
                 Items.Clear();
-                var items = await authorDataStore.GetItemsAsync();
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
+                (await authorDataStore.GetItemsAsync()).ForEach(x => Items.Add(x));
             }
             catch (Exception ex)
             {

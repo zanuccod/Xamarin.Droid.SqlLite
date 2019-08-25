@@ -14,8 +14,8 @@ namespace SqLitePcl.Common.Test.Models
         private AuthorDataStoreSql db;
         private const string dbPath = "dbSqLiteTest";
 
-        [TestFixtureSetUp]
-        public void Init()
+        [SetUp]
+        public void BeforeEachTest()
         {
             db = new AuthorDataStoreSql(dbPath + ".db3");
         }
@@ -23,20 +23,11 @@ namespace SqLitePcl.Common.Test.Models
         [TearDown]
         public void AfterEachTest()
         {
-            // because "DataSource=:memory:" create file in the executable folder to store database.
-            // we delete every time all data to have always empty table for the tests
-            Task.FromResult(db.DeleteAllAsync());
-        }
-
-        [TestFixtureTearDown]
-        public void Dispose()
-        {
-            // delete all database files generated for tests
+            // delete all database files generated for test
             var files = Directory.GetFiles(Path.GetDirectoryName(Path.GetFullPath(dbPath)), dbPath + ".*");
             foreach (var file in files)
                 File.Delete(file);
         }
-
 
         [Test]
         public void InsertOneElement_Succes()
@@ -77,7 +68,7 @@ namespace SqLitePcl.Common.Test.Models
         [Test]
         public void DeleteAllAsync_Success()
         {
-            // Assert
+            // Arrange
             var items = new List<Author>()
             {
                 new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" },

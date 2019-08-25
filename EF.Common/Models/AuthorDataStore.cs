@@ -19,56 +19,37 @@ namespace EF.Common.Models
 
         public async Task AddItemAsync(Author item)
         {
-            using (var context = CreateContext())
-            {
-                await context.Table.AddAsync(item);
-                await context.SaveChangesAsync();
-            }
+            await Table.AddAsync(item).ConfigureAwait(false);
+            await SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task UpdateItemAsync(Author item)
         {
-            using (var context = CreateContext())
-            {
-                await Task.FromResult(context.Table.Update(item));
-                await context.SaveChangesAsync();
-            }
+            Table.Update(item);
+            await SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteItemAsync(Author item)
         {
-            using (var context = CreateContext())
-            {
-                await Task.FromResult(context.Table.Remove(item));
-                await context.SaveChangesAsync();
-            }
+            Table.Remove(item);
+            await SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task<Author> GetItemAsync(long id)
         {
-            using (var context = CreateContext())
-            {
-                return await context.Table.FindAsync(id);
-            }
+            return await Table.FindAsync(id).ConfigureAwait(false);
         }
 
         public async Task<List<Author>> GetItemsAsync()
         {
-            using (var context = CreateContext())
-            {
-                return await context.Table.OrderByDescending(x => x.Id)
-                                .ToListAsync();
-            }
+            return await Table.OrderByDescending(x => x.Id).ToListAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteAllAsync()
         {
-            using (var context = CreateContext())
-            {
-                var items = await context.Table.ToArrayAsync();
-                context.RemoveRange(items);
-                await context.SaveChangesAsync();
-            }
+            var items = await Table.ToArrayAsync();
+            Table.RemoveRange(items);
+            await SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }
