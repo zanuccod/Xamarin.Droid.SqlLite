@@ -10,9 +10,6 @@ namespace SqLitePcl.Common.Models
     {
         public AuthorDataStoreSql(string dbPath = null)
             : base(dbPath)
-        { }
-
-        protected override void Init()
         {
             // create table if not exist
             db.CreateTableAsync<Author>();

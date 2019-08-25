@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using SQLite;
-using SqLitePcl.Common.Entities;
 
 namespace SqLitePcl.Common.Models
 {
@@ -14,10 +13,7 @@ namespace SqLitePcl.Common.Models
         protected SqLiteBase(string dbPath)
         {
             db = new SQLiteAsyncConnection(dbPath ?? GetDatabasePath());
-            Init();
         }
-
-        protected abstract void Init();
 
         public void Dispose()
         {
