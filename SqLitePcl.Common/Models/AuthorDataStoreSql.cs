@@ -12,6 +12,12 @@ namespace SqLitePcl.Common.Models
             : base(dbPath)
         { }
 
+        protected override void Init()
+        {
+            // create table if not exist
+            db.CreateTableAsync<Author>();
+        }
+
         public async Task AddItemAsync(Author item)
         {
             await db.InsertAsync(item).ConfigureAwait(false);

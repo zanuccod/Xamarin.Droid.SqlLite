@@ -17,11 +17,7 @@ namespace SqLitePcl.Common.Models
             Init();
         }
 
-        private void Init()
-        {
-            // create table if not exist
-            db.CreateTableAsync<Author>();
-        }
+        protected abstract void Init();
 
         public void Dispose()
         {
