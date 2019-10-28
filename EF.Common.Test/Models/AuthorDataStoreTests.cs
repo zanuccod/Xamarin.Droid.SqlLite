@@ -13,14 +13,13 @@ namespace EF.Common.Test.Models
     [TestFixture]
     public class AuthorDataStoreTests
     {
-        private DbContextOptions<EntityFrameworkBase<Author>> options;
+        private DbContextOptions<EFDataContext> options;
         private const string dbPath = "dbEFTest";
         private AuthorDataStore db;
 
 #pragma warning disable IDE0051 // remove warning of unsed private members
         private IEnumerable<TestCaseData> TestCasesItems()
         {
-            yield return new TestCaseData(null, 0);
             yield return new TestCaseData(
                 new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" },
                 1);
@@ -31,7 +30,7 @@ namespace EF.Common.Test.Models
         [TestFixtureSetUp]
         public void BeforeAllTests()
         {
-            options = new DbContextOptionsBuilder<EntityFrameworkBase<Author>>()
+            options = new DbContextOptionsBuilder<EFDataContext>()
                 .UseSqlite($"Filename={dbPath}.db3")
                 .Options;
         }
@@ -52,42 +51,42 @@ namespace EF.Common.Test.Models
         }
 
         [Test, TestCaseSource("TestCasesItems")]
-        public void AddItemAsync_Success(Author item, int itemsCount)
+        public async Task AddItemAsync_Success(Author item, int itemsCount)
         {
             // Act
-            Task.FromResult(db.AddItemAsync(item));
+            await db.AddItemAsync(item);
 
             // Assert
             Assert.AreEqual(itemsCount, db.GetItemsAsync().Result.Count);
         }
 
         [Test, TestCaseSource("TestCasesItems")]
-        public void UpdateItemAsync_Success(Author item, int itemsCount)
+        public async Task UpdateItemAsync_Success(Author item, int itemsCount)
         {
             // Act
-            Task.FromResult(db.UpdateItemAsync(item));
+            await db.UpdateItemAsync(item);
 
             // Assert
             Assert.AreEqual(itemsCount, db.GetItemsAsync().Result.Count);
         }
 
         [Test]
-        public void DeleteItemAsync_Success()
+        public async Task DeleteItemAsync_Success()
         {
             // Arrange
             var item = new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" };
-            Task.FromResult(db.AddItemAsync(item));
+            await db.AddItemAsync(item);
             Assert.AreEqual(1, db.GetItemsAsync().Result.Count);
 
             // Act
-            Task.FromResult(db.DeleteItemAsync(item));
+            await db.DeleteItemAsync(item);
 
             // Assert
             Assert.AreEqual(0, db.GetItemsAsync().Result.Count);
         }
 
         [Test]
-        public void DeleteAllAsync_Success()
+        public async Task DeleteAllAsync_Success()
         {
             // Assert
             var items = new List<Author>()
@@ -97,11 +96,11 @@ namespace EF.Common.Test.Models
                 new Author() { Name = "name2", Surname = "surname2", BornDate = "01-01-1970", Country = "TEST" }
             };
 
-            items.ForEach(x => Task.FromResult(db.AddItemAsync(x)));
+            items.ForEach(x => db.AddItemAsync(x).ConfigureAwait(true));
             Assert.AreEqual(items.Count, db.GetItemsAsync().Result.Count);
 
             // Act
-            Task.FromResult(db.DeleteAllAsync());
+            await db.DeleteAllAsync();
 
             // Assert
             Assert.AreEqual(0, db.GetItemsAsync().Result.Count);

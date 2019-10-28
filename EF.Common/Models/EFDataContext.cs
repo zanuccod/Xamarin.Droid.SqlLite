@@ -1,21 +1,22 @@
 ﻿using System;
 using System.IO;
+using EF.Common.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EF.Common.Models
 {
-    public class EntityFrameworkBase<T> : DbContext where T : class
+    public class EFDataContext : DbContext
     {
         private const string databaseName = "dbEF.db";
 
         #region Constructors
 
-        public EntityFrameworkBase()
+        public EFDataContext()
         {
             Init();
         }
 
-        public EntityFrameworkBase(DbContextOptions<EntityFrameworkBase<T>> options = null)
+        public EFDataContext(DbContextOptions options)
             : base(options)
         {
             Init();
@@ -25,17 +26,7 @@ namespace EF.Common.Models
 
         #region Public Propeties
 
-        public DbSet<T> Table { get; set; }
-
-        #endregion
-
-        #region Public Methods
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            Table = null;
-        }
+        public DbSet<Author> Authors { get; set; }
 
         #endregion
 

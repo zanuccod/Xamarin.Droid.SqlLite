@@ -18,13 +18,13 @@ namespace EF.Common.Test.ViewModels
         Mock<IDataStore<Author>> mockAuthorModel;
         private IDataStore<Author> authorModel;
         private ItemsViewModel<Author> viewModel;
-        DbContextOptions<EntityFrameworkBase<Author>> options;
+        DbContextOptions<EFDataContext> options;
 
         [SetUp]
         public void Setup()
         {
             // create dataStore with "memory" connection option to test Add and then read operations
-            options = new DbContextOptionsBuilder<EntityFrameworkBase<Author>>()
+            options = new DbContextOptionsBuilder<EFDataContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 

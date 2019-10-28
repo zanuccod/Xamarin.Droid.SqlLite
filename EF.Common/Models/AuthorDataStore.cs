@@ -4,52 +4,78 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EF.Common.Entities;
 using Common.Models;
-using System.Transactions;
 
 namespace EF.Common.Models
 {
-    public class AuthorDataStore : EntityFrameworkBase<Author>, IDataStore<Author>
+    public class AuthorDataStore : EFDataContext, IDataStore<Author>
     {
-        public AuthorDataStore()
-        { }
+        private readonly DbContextOptions options;
 
-        public AuthorDataStore(DbContextOptions<EntityFrameworkBase<Author>> options)
-            : base(options)
-        { }
+        #region Constructors
+
+        public AuthorDataStore()
+        {
+            options = new DbContextOptionsBuilder().Options;
+        }
+
+        public AuthorDataStore(DbContextOptions options)
+        {
+            this.options = options;
+        }
+
+        #endregion
 
         public async Task AddItemAsync(Author item)
         {
-            await Table.AddAsync(item).ConfigureAwait(false);
-            await SaveChangesAsync().ConfigureAwait(false);
+            using (var db = new EFDataContext(options))
+            {
+                await db.Authors.AddAsync(item);
+                await db.SaveChangesAsync().ConfigureAwait(false);
+            }
         }
 
         public async Task UpdateItemAsync(Author item)
         {
-            Table.Update(item);
-            await SaveChangesAsync().ConfigureAwait(false);
+            using (var db = new EFDataContext(options))
+            {
+                db.Authors.Update(item);
+                await db.SaveChangesAsync().ConfigureAwait(false);
+            }
         }
 
         public async Task DeleteItemAsync(Author item)
         {
-            Table.Remove(item);
-            await SaveChangesAsync().ConfigureAwait(false);
+            using (var db = new EFDataContext(options))
+            {
+                db.Authors.Remove(item);
+                await db.SaveChangesAsync().ConfigureAwait(false);
+            }
         }
 
         public async Task<Author> GetItemAsync(long id)
         {
-            return await Table.FindAsync(id).ConfigureAwait(false);
+            using (var db = new EFDataContext(options))
+            {
+                return await db.Authors.FindAsync(id);
+            }
         }
 
         public async Task<List<Author>> GetItemsAsync()
         {
-            return await Table.OrderByDescending(x => x.Id).ToListAsync().ConfigureAwait(false);
+            using (var db = new EFDataContext(options))
+            {
+                return await db.Authors.OrderByDescending(x => x.Id).ToListAsync();
+            }
         }
 
         public async Task DeleteAllAsync()
         {
-            var items = await Table.ToArrayAsync();
-            Table.RemoveRange(items);
-            await SaveChangesAsync().ConfigureAwait(false);
+            using (var db = new EFDataContext(options))
+            {
+                var items = await db.Authors.ToArrayAsync();
+                db.Authors.RemoveRange(items);
+                await db.SaveChangesAsync().ConfigureAwait(false);
+            }
         }
     }
 }
