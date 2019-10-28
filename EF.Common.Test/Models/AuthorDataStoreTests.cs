@@ -88,7 +88,7 @@ namespace EF.Common.Test.Models
         [Test]
         public async Task DeleteAllAsync_Success()
         {
-            // Assert
+            // Assert-
             var items = new List<Author>()
             {
                 new Author() { Name = "name", Surname = "surname", BornDate = "01-01-1970", Country = "TEST" },
