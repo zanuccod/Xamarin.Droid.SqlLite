@@ -4,13 +4,13 @@ using SQLite;
 
 namespace SqLitePcl.Common.Models
 {
-    public abstract class SqLiteBase : IDisposable
+    public class SqLiteBase : IDisposable
     {
         private const string databaseName = "dbSqLiteNetPcl.db";
 
-        protected SQLiteAsyncConnection db;
+        public SQLiteAsyncConnection db;
 
-        protected SqLiteBase(string dbPath)
+        public SqLiteBase(string dbPath)
         {
             db = new SQLiteAsyncConnection(dbPath ?? GetDatabasePath());
         }
@@ -18,11 +18,6 @@ namespace SqLitePcl.Common.Models
         public void Dispose()
         {
             db.CloseAsync();
-            db = null;
-
-            // Must be called as the disposal of the connection is not released until the GC runs.
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
         }
 
         private string GetDatabasePath()

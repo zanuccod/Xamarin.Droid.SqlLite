@@ -59,7 +59,6 @@ namespace SqLitePcl.Droid.Activities
 
             addBtn.Click -= AddBtn_Click;
 
-            model.Dispose();
             addBtn.Dispose();
             adapter.Dispose();
         }

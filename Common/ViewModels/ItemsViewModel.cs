@@ -7,7 +7,7 @@ using Common.ViewModels;
 
 namespace Common.ViewModels
 {
-    public class ItemsViewModel<T> : BaseViewModel, IDisposable
+    public class ItemsViewModel<T> : BaseViewModel
     {
         private readonly IDataStore<T> authorDataStore;
 
@@ -24,7 +24,6 @@ namespace Common.ViewModels
 
         public void Dispose()
         {
-            authorDataStore.Dispose();
         }
 
         private void Init()
